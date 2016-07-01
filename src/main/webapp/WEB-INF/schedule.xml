@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans> 
+<!-- 线程执行器配置，用于任务注册 -->
+<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+ <property name="corePoolSize" value="10" />
+ <property name="maxPoolSize" value="100" />
+ <property name="queueCapacity" value="500" />
+</bean>
+
+<!-- 业务对象 -->
+<bean id="bizObject" class="com.schedule.ExpireJobTask" />
+
+<!-- 调度业务 -->
+<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+ <property name="targetObject" ref="bizObject" />
+ <property name="targetMethod" value="doBiz" />
+</bean>
+
+<!-- 增加调度触发器CronTriggerBean，支持到指定时间运行一次，如每天12:00运行一次等   Cron表达式“10 */1 * * * ?”意为：从10秒开始，每1分钟执行一次。 -->
+<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+ <property name="jobDetail" ref="jobDetail" />
+ <property name="cronExpression" value="0/10 * * * * ?" />
+</bean>
+
+<!--
+SimpleTriggerBean，只支持按照一定频度调用任务，如每隔30分钟运行一次。
+<bean id="taskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+ <property name="jobDetail" ref="jobDetail" />
+ <property name="startDelay" value="10000" />
+ <property name="repeatInterval" value="60000" />
+</bean>
+-->
+
+<!-- 设置调度 -->
+<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	 <property name="triggers">
+		  <list>
+		   
+		   <!--  <ref bean="cronTrigger" /> -->
+		   
+		   
+		   
+		  </list>
+	 </property>
+	 <property name="taskExecutor" ref="executor" />
+</bean>
+
+</beans>
