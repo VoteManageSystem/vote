@@ -97,7 +97,7 @@
 				json += ",password:"+ password;
 				$.ajax({
 					
-				    url: "${ctx}/votes/login_in.do",
+				    url: "${ctx}/logins/login_in.do",
 				    dataType : "json",
 				    type : "POST",
 				    async: false,

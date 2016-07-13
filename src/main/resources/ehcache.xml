@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+<!-- timeToIdleSeconds=120；
+timeToLiveSeconds=180；
+上面的表示此缓存最多可以存活3分钟，如果期间超过2分钟未访问 那么此缓存失效！
+ -->
+    <diskStore path="java.io.tmpdir"/>
+       <defaultCache maxElementsInMemory="1000" eternal="false"  
+        timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true" />  
+    <cache 
+    name="serviceCache"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="1800"
+            timeToLiveSeconds="300"
+            overflowToDisk="true"
+            maxElementsOnDisk="10000000"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+</ehcache>

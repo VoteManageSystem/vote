@@ -24,6 +24,8 @@
 	<context:component-scan base-package="com.maven.example" />
 	<context:component-scan base-package="com.thumbnail" />
     <context:component-scan base-package="com.schedule" />
+    <context:component-scan base-package="com.config" />
+     <context:component-scan base-package="com.vote" />
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/" />
 		<property name="suffix" value=".jsp" />
